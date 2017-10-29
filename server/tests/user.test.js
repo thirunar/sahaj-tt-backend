@@ -19,9 +19,10 @@ after((done) => {
 
 describe('## User APIs', () => {
     let user = {
-        username: 'KK123',
-        mobileNumber: '1234567890',
-        points: 50
+        name: 'Thiru',
+        email: 'thirur@zxy.com',
+        points: 50,
+        is_admin: true
     };
 
     describe('# POST /api/users', () => {
@@ -31,9 +32,10 @@ describe('## User APIs', () => {
                 .send(user)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    expect(res.body.username).to.equal(user.username);
-                    expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+                    expect(res.body.name).to.equal(user.name);
+                    expect(res.body.email).to.equal(user.email);
                     expect(res.body.points).to.equal(user.points);
+                    expect(res.body.is_admin).to.equal(user.is_admin);
                     user = res.body;
                     done();
                 })
@@ -47,9 +49,10 @@ describe('## User APIs', () => {
                 .get(`/api/users/${user._id}`)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    expect(res.body.username).to.equal(user.username);
-                    expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+                    expect(res.body.name).to.equal(user.name);
+                    expect(res.body.email).to.equal(user.email);
                     expect(res.body.points).to.equal(user.points);
+                    expect(res.body.is_admin).to.equal(user.is_admin);
                     done();
                 })
                 .catch(done);
@@ -69,15 +72,16 @@ describe('## User APIs', () => {
 
     describe('# PUT /api/users/:userId', () => {
         it('should update user details', (done) => {
-            user.username = 'KK';
+            user.username = 'Deepthi';
             request(app)
                 .put(`/api/users/${user._id}`)
                 .send(user)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    expect(res.body.username).to.equal('KK');
-                    expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+                    expect(res.body.name).to.equal('Thiru');
+                    expect(res.body.email).to.equal(user.email);
                     expect(res.body.points).to.equal(user.points);
+                    expect(res.body.is_admin).to.equal(user.is_admin);
                     done();
                 })
                 .catch(done);
@@ -115,9 +119,10 @@ describe('## User APIs', () => {
                 .delete(`/api/users/${user._id}`)
                 .expect(httpStatus.OK)
                 .then((res) => {
-                    expect(res.body.username).to.equal('KK');
-                    expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+                    expect(res.body.name).to.equal(user.name);
+                    expect(res.body.email).to.equal(user.email);
                     expect(res.body.points).to.equal(user.points);
+                    expect(res.body.is_admin).to.equal(user.is_admin);
                     done();
                 })
                 .catch(done);
